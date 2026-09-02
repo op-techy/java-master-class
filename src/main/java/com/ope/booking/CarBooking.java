@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CarBooking {
-    private UUID id;
+    private final UUID id;
     private User user;
     private Car car;
     private LocalDate startDate;
@@ -33,10 +33,6 @@ public class CarBooking {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public User getUser() {
@@ -100,17 +96,12 @@ public class CarBooking {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         CarBooking that = (CarBooking) object;
-        return Objects.equals(id, that.id) && Objects.equals(user, that.user)
-                && Objects.equals(car, that.car)
-                && Objects.equals(startDate, that.startDate)
-                && Objects.equals(endDate, that.endDate)
-                && Objects.equals(price, that.price)
-                && status == that.status && Objects.equals(bookedAt, that.bookedAt);
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, car, startDate, endDate, price, status, bookedAt);
+        return Objects.hash(id);
     }
 
     @Override

@@ -25,10 +25,11 @@ public class CarBookingDao {
         bookings = newBookings;
     }
 
-    public void deleteBookingById(UUID bookingId){
+    public boolean deleteBookingById(UUID bookingId){
+        if (!bookingExists(bookingId) || bookingId == null) return false;
+
         CarBooking[] newBookings = new CarBooking[bookings.length - 1];
         int index = 0;
-
         for (CarBooking booking : bookings){
             if (!booking.getId().equals(bookingId)) {
                 newBookings[index++] = booking;
@@ -36,5 +37,11 @@ public class CarBookingDao {
         }
 
         bookings = newBookings;
+        return true;
+    }
+
+    public boolean bookingExists(UUID bookingId){
+        Optional<CarBooking> carBooking = findBookingById(bookingId);
+        return carBooking.isPresent();
     }
 }

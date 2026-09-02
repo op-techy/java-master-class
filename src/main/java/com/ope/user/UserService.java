@@ -12,16 +12,10 @@ public class UserService {
     }
 
     public Optional<User> findUserById(UUID id){
-        User[] users = userDao.getAllUsers();
-
-        for (User user : users){
-            if(id.equals(user.getId())) return Optional.of(user);
-        }
-
-        return Optional.empty();
+        return userDao.findUserById(id);
     }
 
     public User[] findAllUsers(){
-        return userDao.getAllUsers();
+        return userDao.getUsers();
     }
 }

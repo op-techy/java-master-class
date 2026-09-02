@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class CarDao {
 
-    public static final Car[] CARS;
+    private static final Car[] CARS;
 
     static {
         CARS = new Car[]{
@@ -17,12 +17,12 @@ public class CarDao {
         };
     }
 
-    public Car[] getAllCars() {
+    public Car[] getCars() {
         return CARS;
     }
 
-    public Optional<Car> getCarById(UUID id){
-        Car[] cars = getAllCars();
+    public Optional<Car> findCarById(UUID id){
+        Car[] cars = getCars();
 
         for (Car car : cars) {
             if (id.equals(car.getId())) return Optional.of(car);

@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class Car {
 
-    private UUID id;
+    private final UUID id;
     private String regNumber;
     private BigDecimal rentalPricePerDay;
     private Brand brand;
@@ -22,10 +22,6 @@ public class Car {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getRegNumber() {
@@ -65,12 +61,12 @@ public class Car {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Car car = (Car) object;
-        return isElectric == car.isElectric && Objects.equals(id, car.id) && Objects.equals(regNumber, car.regNumber) && Objects.equals(rentalPricePerDay, car.rentalPricePerDay) && brand == car.brand;
+        return Objects.equals(id, car.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, regNumber, rentalPricePerDay, brand, isElectric);
+        return Objects.hash(id);
     }
 
     @Override

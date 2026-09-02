@@ -1,7 +1,4 @@
 package com.ope;
-// TODO 1. create a new branch called initial-implementation
-// TODO 2. create a package with your name. i.e com.franco and move this file inside the new package
-// TODO 3. implement https://amigoscode.com/learn/java-cli-build/lectures/3a83ecf3-e837-4ae5-85a8-f8ae3f60f7f5
 
 import com.ope.booking.CarBooking;
 import com.ope.booking.CarBookingService;
@@ -48,7 +45,7 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a number between 1 and 8.");
             } catch (Exception e) {
-                System.out.println("Something went wrong: " + e.getMessage());;
+                System.out.println("Oops! " + e.getMessage());
             }
 
         }
@@ -162,6 +159,7 @@ public class Main {
     private static void printCars(Car[] cars){
         if (cars.length == 0){
             System.out.println("No cars to display");
+            return;
         }
 
         for (Car car : cars){

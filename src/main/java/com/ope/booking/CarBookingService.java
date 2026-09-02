@@ -37,7 +37,7 @@ public class CarBookingService {
         CarBooking[] bookings = getAllBookings();
         for (CarBooking existing : bookings){
             if (existing != null && existing.getCar().equals(car) && existing.getStatus() == BookingStatus.ACTIVE){
-                throw new RuntimeException("Car %s is already booked!".formatted(car.getRegNumber()));
+                throw new IllegalStateException("Car %s is already booked!".formatted(car.getRegNumber()));
             }
         }
 
@@ -91,13 +91,13 @@ public class CarBookingService {
 
         int count = 0;
         for (Car car : allCars){
-            if (!isbooked(car, bookings)) count++;
+            if (!isBooked(car, bookings)) count++;
         }
 
         Car[] availableCars = new Car[count];
         int index = 0;
         for (Car car : allCars){
-            if (!isbooked(car, bookings)){
+            if (!isBooked(car, bookings)){
                 availableCars[index++] = car;
             }
         }
@@ -123,13 +123,14 @@ public class CarBookingService {
         return availableElectricCars;
     }
 
-    public void deleteBooking (UUID bookId){
-        CarBooking booking = carBookingDao.findBookingById(bookId)
-                .orElseThrow(()->  new IllegalArgumentException("Booking not found: " + bookId));
-        carBookingDao.deleteBookingById(bookId);
+    public void deleteBooking (UUID bookingId){
+        boolean isDeleted = carBookingDao.deleteBookingById(bookingId);
+        if(!isDeleted){
+            throw new IllegalArgumentException("Booking not found: " + bookingId);
+        }
     }
 
-    private boolean isbooked(Car car, CarBooking[] bookings) {
+    private boolean isBooked(Car car, CarBooking[] bookings) {
         for(CarBooking booking : bookings){
             if (booking.getCar().equals(car) && booking.getStatus() == BookingStatus.ACTIVE){
                 return true;

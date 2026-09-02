@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class User {
-    private UUID id;
+    private final UUID id;
     private String name;
 
     public User(UUID id, String name) {
@@ -14,10 +14,6 @@ public class User {
 
     public UUID getId() {
         return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -33,12 +29,12 @@ public class User {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         User user = (User) object;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name);
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id);
     }
 
     @Override

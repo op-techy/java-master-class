@@ -12,11 +12,11 @@ public class CarService {
     }
 
     public Optional<Car> findCarById(UUID id){
-        return carDao.getCarById(id);
+        return carDao.findCarById(id);
     }
 
     public Car[] findAllCars(){
-        return carDao.getAllCars();
+        return carDao.getCars();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.ope.user;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class UserDao {
@@ -19,8 +20,17 @@ public class UserDao {
         };
     }
 
-    public User[] getAllUsers() {
+    public User[] getUsers() {
         return users;
     }
 
+    public Optional<User> findUserById(UUID id) {
+        User[] users = getUsers();
+
+        for (User user : users){
+            if(id.equals(user.getId())) return Optional.of(user);
+        }
+
+        return Optional.empty();
+    }
 }
