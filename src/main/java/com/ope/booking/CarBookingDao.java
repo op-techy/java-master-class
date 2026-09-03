@@ -28,15 +28,12 @@ public class CarBookingDao {
     public boolean deleteBookingById(UUID bookingId){
         if (!bookingExists(bookingId) || bookingId == null) return false;
 
-        CarBooking[] newBookings = new CarBooking[bookings.length - 1];
-        int index = 0;
         for (CarBooking booking : bookings){
-            if (!booking.getId().equals(bookingId)) {
-                newBookings[index++] = booking;
+            if (booking.getId().equals(bookingId)) {
+                booking.setStatus(BookingStatus.CANCELLED);
             }
         }
 
-        bookings = newBookings;
         return true;
     }
 
