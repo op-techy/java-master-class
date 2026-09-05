@@ -2,3 +2,5 @@ java-master-class.iml
 out/
 /.idea/
 /target
+
+.DS_Store
