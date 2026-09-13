@@ -17,7 +17,7 @@ import java.util.UUID;
 public class Main {
 
     static void main(String[] args) {
-        CarBookingDao carBookingDao = new CarBookingFileDataAccessService("/Users/mac/Developer/java-master-class/bookings.dat");
+        CarBookingDao carBookingDao = new CarBookingFileDataAccessService("bookings.dat");
         // CarBookingDao carBookingDao = new CarBookingArrayDataAccessService();
 
         UserDao userDao = new UserArrayDataAccessService();
