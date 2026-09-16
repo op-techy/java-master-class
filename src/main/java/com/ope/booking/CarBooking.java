@@ -3,13 +3,17 @@ package com.ope.booking;
 import com.ope.car.Car;
 import com.ope.user.User;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
-public class CarBooking {
+public class CarBooking implements Serializable {
+
+    private static final long serialVersionUID = 3L;
+
     private final UUID id;
     private User user;
     private Car car;

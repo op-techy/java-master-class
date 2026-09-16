@@ -1,9 +1,13 @@
 package com.ope;
 
-import com.ope.booking.CarBooking;
-import com.ope.booking.CarBookingService;
+import com.ope.booking.*;
 import com.ope.car.Car;
+import com.ope.car.CarArrayDataAccessService;
+import com.ope.car.CarDao;
+import com.ope.car.CarService;
 import com.ope.user.User;
+import com.ope.user.UserArrayDataAccessService;
+import com.ope.user.UserDao;
 import com.ope.user.UserService;
 
 import java.time.LocalDate;
@@ -13,8 +17,16 @@ import java.util.UUID;
 public class Main {
 
     static void main(String[] args) {
-        UserService userService = new UserService();
-        CarBookingService carBookingService = new CarBookingService();
+        CarBookingDao carBookingDao = new CarBookingFileDataAccessService("bookings.dat");
+        // CarBookingDao carBookingDao = new CarBookingArrayDataAccessService();
+
+        UserDao userDao = new UserArrayDataAccessService();
+        UserService userService = new UserService(userDao);
+
+        CarDao carDao = new CarArrayDataAccessService();
+        CarService carService = new CarService(carDao);
+
+        CarBookingService carBookingService = new CarBookingService(carBookingDao, userService, carService);
 
         Scanner sc = new Scanner(System.in);
 
@@ -82,7 +94,7 @@ public class Main {
         UUID bookingID = UUID.fromString(sc.nextLine().trim());
 
         carBookingService.deleteBooking(bookingID);
-        System.out.println("Booking deleted.");
+        System.out.println("Booking deleted.\n");
     }
 
     /**
@@ -146,34 +158,34 @@ public class Main {
      */
     private static void printCars(Car[] cars){
         if (cars.length == 0){
-            System.out.println("No cars to display");
+            System.out.println("No cars to display.\n");
             return;
         }
 
         for (Car car : cars){
-            System.out.println(car);
+            System.out.println(car + "\n");
         }
     }
 
     private static void printBookings(CarBooking[] bookings){
         if(bookings.length == 0){
-            System.out.println("No bookings found.");
+            System.out.println("No bookings found.\n");
             return;
         }
 
         for (CarBooking booking : bookings){
-            System.out.println(booking);
+            System.out.println(booking + "\n");
         }
     }
 
     private static void printUsers(User[] users){
         if(users.length == 0){
-            System.out.println("No users found.");
+            System.out.println("No users found.\n");
             return;
         }
 
         for (User user : users){
-            System.out.println(user);
+            System.out.println(user + "\n");
         }
     }
 }

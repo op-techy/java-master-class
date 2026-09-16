@@ -7,8 +7,8 @@ public class CarService {
 
     private final CarDao carDao;
 
-    public CarService() {
-        this.carDao = new CarDao();
+    public CarService(CarDao carDao) {
+        this.carDao = carDao;
     }
 
     public Optional<Car> findCarById(UUID id){
