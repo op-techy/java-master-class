@@ -11,6 +11,9 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CarBooking implements Serializable {
+
+    private static final long serialVersionUID = 3L;
+
     private final UUID id;
     private User user;
     private Car car;

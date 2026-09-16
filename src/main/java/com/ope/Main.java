@@ -94,7 +94,7 @@ public class Main {
         UUID bookingID = UUID.fromString(sc.nextLine().trim());
 
         carBookingService.deleteBooking(bookingID);
-        System.out.println("Booking deleted.");
+        System.out.println("Booking deleted.\n");
     }
 
     /**
