@@ -11,6 +11,7 @@ import com.ope.user.UserDao;
 import com.ope.user.UserService;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -104,7 +105,7 @@ public class Main {
         System.out.print("User ID: ");
         UUID userId = UUID.fromString(sc.nextLine().trim());
 
-        Car[] cars = carBookingService.getCarBookingsForUser(userId);
+        List<Car> cars = carBookingService.getCarBookingsForUser(userId);
         printCars(cars);
     }
 
@@ -112,7 +113,7 @@ public class Main {
      * FR-04: Display every booking in the system
      */
     private static void allBookings(CarBookingService carBookingService) {
-        CarBooking[] bookings = carBookingService.getAllBookings();
+        List<CarBooking> bookings = carBookingService.getAllBookings();
         printBookings(bookings);
 
     }
@@ -135,7 +136,7 @@ public class Main {
      * FR-07: List all registered users
      */
     private static void allUsers(UserService userService) {
-        User[] users = userService.findAllUsers();
+        List<User> users = userService.findAllUsers();
         printUsers(users);
     }
 
@@ -156,8 +157,8 @@ public class Main {
     /**
      * Helper method to print cars
      */
-    private static void printCars(Car[] cars){
-        if (cars.length == 0){
+    private static void printCars(List<Car> cars){
+        if (cars.isEmpty()){
             System.out.println("No cars to display.\n");
             return;
         }
@@ -167,8 +168,8 @@ public class Main {
         }
     }
 
-    private static void printBookings(CarBooking[] bookings){
-        if(bookings.length == 0){
+    private static void printBookings(List<CarBooking> bookings){
+        if(bookings.isEmpty()){
             System.out.println("No bookings found.\n");
             return;
         }
@@ -178,8 +179,8 @@ public class Main {
         }
     }
 
-    private static void printUsers(User[] users){
-        if(users.length == 0){
+    private static void printUsers(List<User> users){
+        if(users.isEmpty()){
             System.out.println("No users found.\n");
             return;
         }

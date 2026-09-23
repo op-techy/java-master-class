@@ -1,15 +1,13 @@
 package com.ope.booking;
 
-import java.util.Arrays;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 public class CarBookingArrayDataAccessService implements CarBookingDao {
-    private CarBooking[] bookings = new CarBooking[0];
+    private List<CarBooking> bookings = new ArrayList<>();
 
     @Override
-    public CarBooking[] getBookings(){
-        return Arrays.copyOf(bookings, bookings.length);
+    public List<CarBooking> getBookings(){
+        return List.copyOf(bookings);
     }
 
     @Override
@@ -23,10 +21,7 @@ public class CarBookingArrayDataAccessService implements CarBookingDao {
 
     @Override
     public void saveBooking(CarBooking booking){
-        CarBooking[] newBookings = new CarBooking[bookings.length + 1];
-        System.arraycopy(bookings,0,newBookings,0,bookings.length);
-        newBookings[bookings.length] = booking;
-        bookings = newBookings;
+        bookings.add(booking);
     }
 
     @Override

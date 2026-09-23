@@ -1,10 +1,11 @@
 package com.ope.car;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface CarDao {
-    Car[] getCars();
+    List<Car> getCars();
 
     Optional<Car> findCarById(UUID id);
 }

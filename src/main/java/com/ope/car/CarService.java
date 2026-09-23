@@ -1,5 +1,6 @@
 package com.ope.car;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ public class CarService {
         return carDao.findCarById(id);
     }
 
-    public Car[] findAllCars(){
+    public List<Car> findAllCars(){
         return carDao.getCars();
     }
 
