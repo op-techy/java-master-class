@@ -74,7 +74,7 @@ public class CarBookingService {
 
         List<Car> userCars = new ArrayList<>();
         for (CarBooking b : carBookings){
-            if (b != null && b.getUser().getId().equals(userId)) {
+            if (b != null && b.getUser().getId().equals(userId) && b.getStatus() == BookingStatus.ACTIVE) {
                 userCars.add(b.getCar());
             }
         }
