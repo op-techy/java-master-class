@@ -1,13 +1,14 @@
 package com.ope.user;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public class UserArrayDataAccessService implements UserDao {
-    private static final User[] users;
+    private static final List<User> users;
 
     static {
-        users = new User[]{
+        users = List.of(
                 new User(UUID.fromString("2f1f54d7-08d8-48e5-b9d7-e1f445f3cf19"),"Ope"),
                 new User(UUID.fromString("34e09ef5-7735-4712-b55f-7c57e04e1ff0"),"Yusuf"),
                 new User(UUID.fromString("cc86e6d9-e360-415e-ace1-97b4b823bbf7"),"Nelson"),
@@ -17,17 +18,18 @@ public class UserArrayDataAccessService implements UserDao {
                 new User(UUID.fromString("fb9397be-3717-4f85-bca7-26d827550df3"),"Sam"),
                 new User(UUID.fromString("aee107b6-1da8-4274-8972-b1af9f82ca18"),"Jon"),
                 new User(UUID.fromString("59ea6d1d-441f-4ef0-ad72-d8b590ab8fb3"),"Subi")
-        };
+        );
+
     }
 
     @Override
-    public User[] getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
     @Override
     public Optional<User> findUserById(UUID id) {
-        User[] users = getUsers();
+        List<User> users = getUsers();
 
         for (User user : users){
             if(id.equals(user.getId())) return Optional.of(user);
