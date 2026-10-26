@@ -163,9 +163,7 @@ public class Main {
             return;
         }
 
-        for (Car car : cars){
-            System.out.println(car + "\n");
-        }
+        cars.forEach(System.out::println);
     }
 
     private static void printBookings(List<CarBooking> bookings){
@@ -174,9 +172,7 @@ public class Main {
             return;
         }
 
-        for (CarBooking booking : bookings){
-            System.out.println(booking + "\n");
-        }
+       bookings.forEach(System.out::println);
     }
 
     private static void printUsers(List<User> users){
@@ -185,8 +181,6 @@ public class Main {
             return;
         }
 
-        for (User user : users){
-            System.out.println(user + "\n");
-        }
+        users.forEach(System.out::println);
     }
 }

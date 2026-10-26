@@ -26,13 +26,9 @@ public class CarArrayDataAccessService implements CarDao {
 
     @Override
     public Optional<Car> findCarById(UUID id){
-        List<Car> cars = getCars();
-
-        for (Car car : cars) {
-            if (id.equals(car.getId())) return Optional.of(car);
-        }
-
-        return Optional.empty();
+        return getCars().stream()
+                .filter(car -> id.equals(car.getId()))
+                .findFirst();
     }
 
 }

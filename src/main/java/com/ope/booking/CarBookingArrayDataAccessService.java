@@ -3,7 +3,7 @@ package com.ope.booking;
 import java.util.*;
 
 public class CarBookingArrayDataAccessService implements CarBookingDao {
-    private List<CarBooking> bookings = new ArrayList<>();
+    private final List<CarBooking> bookings = new ArrayList<>();
 
     @Override
     public List<CarBooking> getBookings(){
@@ -12,11 +12,9 @@ public class CarBookingArrayDataAccessService implements CarBookingDao {
 
     @Override
     public Optional<CarBooking> findBookingById(UUID bookingId){
-        for (CarBooking booking : bookings){
-            if (booking.getId().equals(bookingId)) return Optional.of(booking);
-        }
-
-        return Optional.empty();
+        return getBookings().stream()
+                .filter(booking -> bookingId.equals(booking.getId()))
+                .findFirst();
     }
 
     @Override
@@ -28,13 +26,15 @@ public class CarBookingArrayDataAccessService implements CarBookingDao {
     public boolean deleteBookingById(UUID bookingId){
         if (bookingId == null || !bookingExists(bookingId)) return false;
 
-        for (CarBooking booking : bookings){
-            if (booking.getId().equals(bookingId)) {
-                booking.setStatus(BookingStatus.CANCELLED);
-                break;
-            }
+        Optional<CarBooking> booking = bookings.stream()
+                .filter(b -> bookingId.equals(b.getId()))
+                .findFirst();
+
+        if (booking.isEmpty()){
+            return false;
         }
 
+        booking.get().setStatus(BookingStatus.CANCELLED);
         return true;
     }
 
