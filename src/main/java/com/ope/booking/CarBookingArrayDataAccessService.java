@@ -24,7 +24,7 @@ public class CarBookingArrayDataAccessService implements CarBookingDao {
 
     @Override
     public boolean deleteBookingById(UUID bookingId){
-        if (bookingId == null || !bookingExists(bookingId)) return false;
+        if (bookingId == null) return false;
 
         Optional<CarBooking> booking = bookings.stream()
                 .filter(b -> bookingId.equals(b.getId()))
@@ -38,8 +38,4 @@ public class CarBookingArrayDataAccessService implements CarBookingDao {
         return true;
     }
 
-    public boolean bookingExists(UUID bookingId){
-        Optional<CarBooking> carBooking = findBookingById(bookingId);
-        return carBooking.isPresent();
-    }
 }

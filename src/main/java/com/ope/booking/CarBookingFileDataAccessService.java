@@ -1,7 +1,5 @@
 package com.ope.booking;
 
-import com.ope.car.Car;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
