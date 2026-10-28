@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class CarBookingFileDataAccessService implements CarBookingDao{
     private final String filePath;
@@ -25,15 +26,14 @@ public class CarBookingFileDataAccessService implements CarBookingDao{
 
             List<?> rawBookings = (List<?>) data;
 
-            List<CarBooking> bookings = new ArrayList<>();
+            return  rawBookings.stream()
+                    .map(object -> {
+                        if (!(object instanceof CarBooking))
+                            throw new IllegalStateException("Illegal booking file: expected a CarBooking object");
 
-            for (Object o : rawBookings){
-                if (!(o instanceof CarBooking)) throw new IllegalStateException("Illegal booking file: expected a CarBooking object");
-
-                bookings.add((CarBooking) o);
-            }
-
-            return bookings;
+                        return (CarBooking) object;
+                    })
+                    .collect(Collectors.toCollection(ArrayList::new));
 
         }  catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -61,22 +61,21 @@ public class CarBookingFileDataAccessService implements CarBookingDao{
 
     @Override
     public boolean deleteBookingById(UUID bookingId) {
+        if (bookingId == null) return false;
+
         List<CarBooking> bookings = readBookingsFromFile();
-        boolean found = false;
 
-        for (CarBooking booking : bookings){
-            if (bookingId.equals(booking.getId())){
-                booking.setStatus(BookingStatus.CANCELLED);
-                found = true;
-                break;
-            }
+        Optional<CarBooking> bookingToDelete = bookings.stream()
+                .filter(b -> bookingId.equals(b.getId()))
+                .findFirst();
+
+        if (bookingToDelete.isEmpty()){
+            return false;
         }
 
-        if (found){
-            writeBookingsToFile(bookings);
-        }
-
-        return found;
+        bookingToDelete.get().setStatus(BookingStatus.CANCELLED);
+        writeBookingsToFile(bookings);
+        return true;
     }
 
     @Override
@@ -86,13 +85,13 @@ public class CarBookingFileDataAccessService implements CarBookingDao{
 
     @Override
     public Optional<CarBooking> findBookingById(UUID bookingId) {
+        if (bookingId == null) return Optional.empty();
+
         List<CarBooking> bookings = readBookingsFromFile();
 
-        for (CarBooking booking : bookings){
-            if (bookingId.equals(booking.getId())) return Optional.of(booking);
-        }
-
-        return Optional.empty();
+        return bookings.stream()
+                .filter(b -> bookingId.equals(b.getId()))
+                .findFirst();
     }
 
 
